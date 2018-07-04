@@ -8,7 +8,7 @@ var app = express();
 
 var PORT = process.env.PORT || 8080;
 
-app.use(express.static("views"));
+// app.use(express.static("views"));
 //change views directory to public, and move CSS and other stuff to it. Compare to what's in public directory on cats activity
 
 app.use(bodyParser.urlencoded({ extended: true }));
