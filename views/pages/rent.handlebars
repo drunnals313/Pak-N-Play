@@ -1,0 +1,553 @@
+{{!-- Nav bar --}}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    {{!-- brand name to link to homepage --}}
+  <a class="navbar-brand" href="#">Rent-a-Rattle</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+          {{!-- link to homepage --}}
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+          {{!-- link to about page --}}
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+          {{!-- link to our vendors list --}}
+        <a class="nav-link" href="#">Vendors</a>
+      </li>
+      <li class="nav-item dropdown">
+          {{!-- drop down for if you want to rent, borrow, or buy --}}
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Products
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Rent</a>
+          <a class="dropdown-item" href="#">Borrow</a>
+          <a class="dropdown-item" href="#">Buy</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+{{!-- welcome jumbotron --}}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">This! Is! Rent-a-Rattle!</h1>
+    <p class="lead">The place where you can meet your baby needs with ease.</p>
+  </div>
+</div>
+{{!-- section for problem statement --}}
+<div class="card">
+  <div class="card-body">
+    Does your baby grow out of things too fast?
+    Are you traveling, but don't want to pack your Pak'n'Play?
+    Do you have stuff you baby doesn't need anymore?
+
+    Welcome to Rent-a-Rattle!
+
+    Here you can rent, borrow, or buy any of you baby's needs for anytime of there life...anywhere you go.
+  </div>
+</div>
+
+
+<script id="fsc-api"
+				src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.0/fastspring-builder.min.js" type="text/javascript"
+				data-storefront="furiousfalcon.test.onfastspring.com/popup-furiousfalcon"
+				data-markup-helpers-callback="markupHelpersCallback"
+				data-after-markup-callback="afterMarkupCallbackFunction">
+</script>
+<script>
+	function afterMarkupCallbackFunction(event) {
+    /*initialize popovers*/
+		$('[data-toggle="popover"]').popover({trigger: "hover" });
+    }
+	function markupHelpersCallback() {
+        Handlebars.registerHelper('iff', function(lvalue, operator, rvalue, options) {
+            if (window.hasOwnProperty(rvalue)) rvalue = window[rvalue];
+            var functions = {
+                '==':       function(l,r) { return l == r; },
+                '===':      function(l,r) { return l === r; },
+                '!=':       function(l,r) { return l != r; },
+                '<':        function(l,r) { return l < r; },
+                '>':        function(l,r) { return l > r; },
+                '<=':       function(l,r) { return l <= r; },
+                '>=':       function(l,r) { return l >= r; },
+                'typeof':   function(l,r) { return typeof l === r; }
+            };
+            if (!functions.hasOwnProperty(operator)){
+                throw new Error("Handlerbars Helper 'iff' doesn't know the operator " + operator);
+            }
+            var result = functions[operator](lvalue,rvalue);
+            if( result ) {
+                return options.fn(this);
+            } else {
+                return options.inverse(this);
+            }
+        });
+        Handlebars.registerPartial("pricing", document.getElementById('pricing-partial').innerHTML);
+        Handlebars.registerPartial("quantity", document.getElementById('quantity-partial').innerHTML);
+        Handlebars.registerPartial("volumepricing", document.getElementById('volumepricing').innerHTML);
+        Handlebars.registerPartial("tooltipVolumeTpl", document.getElementById('tooltipVolumeTpl').innerHTML);
+    }
+</script>
+<script data-fsc-template-for="shopping-cart" type="text/x-handlebars-template">
+	<div id="shopping-cart" class="shopping-cart">
+		<table class="table table-striped">
+			<tr class="table-bordered">
+				<th class="col-md-1">Product</th>
+				<th class="col-md-5"></th>
+				<th class="col-md-2 text-center">Unit Price</th>
+				<th class="col-md-2 text-center">Qty</th>
+				<th class="col-md-2 text-center">Subtotal</th>
+			</tr>
+			{{#each items}} {{#each items}} {{#iff path '!=' 'SystemExtension.shippingcalculation'}}
+			<tr class="table-bordered">
+				<td colspan="5">
+					<table class="table" style="background:transparent;">
+						<tr>
+							<td class="col-md-1" style="vertical-align:middle;">
+
+								<img src="{{this.image}}" style="height:100px;" />
+
+							</td>
+							<td class="col-md-5 text-left" style="vertical-align:middle;">
+								<h3>{{this.display}}</h3> {{#if description.summary}}
+								<a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+							</td>
+							<td class="text-center col-md-2" style="vertical-align:middle;">
+								{{>pricing}}
+							</td>
+							<td class="text-center col-md-2" style="vertical-align:middle;">
+								{{>quantity}}
+							</td>
+
+							<td class="text-center col-md-2" style="vertical-align:middle;">
+								<h4>{{this.total}}{{#if removable}}<a data-fsc-action="Remove" data-fsc-item-path-value="{{path}}" class="removecart" style="float:right;"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>{{/if}}</h4></td>
+						</tr>
+
+
+						{{#each groups}}
+
+
+						<!--"Groups" are item extensions like bundle participants, offers, configuration options and so on. -->
+						{{#iff type '==' 'bundle'}}
+						<tr>
+							<td></td>
+							<td>
+								<div class='well text-left'>
+									<!--Show bundle items in well-->
+									<h5>Includes:</h5> {{#each items}}
+									<img src='{{image}}' style="width:60px; height: auto; display:inline;" alt='{{display}}' data-trigger="focus" data-toggle="popover" data-placement="right" data-content="<h4>{{display}}</h4> {{{description.summary}}}" data-html="true" /> {{/each}}
+								</div>
+							</td>
+							<td colspan="3"></td>
+						</tr>
+						{{/iff}}
+
+
+						<!-- check if the product has options-->
+						{{#iff type '==' 'options'}}
+						<tr>
+							<td></td>
+							<td colspan="5">
+								<div class="well">
+									<h4>Product Options for {{../../display}}<br />{{display}}</h4>
+									<table class="table table-striped">
+										<tr>
+											<th colspan="2">Product</th>
+											<th>Qty</th>
+											<th>Unit Price</th>
+											<th>Subtotal</th>
+										</tr>
+										{{#each items}}
+										<tr>
+											<td style="vertical-align:middle;" class="col-md-1">
+												<input type="radio" {{#if selected}} checked{{/if}} data-fsc-action="Add" data-fsc-item-path-value="{{path}}">
+											</td>
+											<td style="vertical-align:middle;" class="col-md-6 text-left">
+												{{#if this.image}}
+												<img class="hidden-sm hidden-xs" src="{{this.image}}" style="height: 65px; width: auto; float: left; margin-right: 10px;" /> {{/if}} {{this.display}} {{#if description.summary}}
+												<br /><a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+											</td>
+											<td style="vertical-align:middle;" class="col-md-2">
+												{{#if selected}}
+												<div class='quantity inline-block'>
+													{{#iff pricing.quantity '==' 'allow'}} {{#iff quantity '>=' '10'}}
+													<div class="form-inline">
+														<input type="text" class="form-control" class="inline" data-fsc-item-quantity-value data-fsc-item-path-value="{{path}}" value="{{quantity}}" style="width:auto;">
+														<input type="button" class="btn btn-default" data-fsc-action="Update" data-fsc-item-path-value="{{path}}" value="Update" style="width:auto;">
+													</div>
+													{{else}}
+													<select data-fsc-item-quantity-value data-fsc-item-quantity data-fsc-item-path-value="{{path}}" data-fsc-item-path="{{path}}" data-fsc-action="Update" class="form-control" style="width:auto; margin: 0 auto;">
+                                                                                            <option value='1'{{#iff quantity '==' 1}}selected="true"{{/iff}}>1</option>
+                                                                                            <option value='2'{{#iff quantity '==' 2}}selected="true"{{/iff}}>2</option>
+                                                                                            <option value='3'{{#iff quantity '==' 3}}selected="true"{{/iff}}>3</option>
+                                                                                            <option value='4'{{#iff quantity '==' 4}}selected="true"{{/iff}}>4</option>
+                                                                                            <option value='5'{{#iff quantity '==' 5}}selected="true"{{/iff}}>5</option>
+                                                                                            <option value='6'{{#iff quantity '==' 6}}selected="true"{{/iff}}>6</option>
+                                                                                            <option value='7'{{#iff quantity '==' 7}}selected="true"{{/iff}}>7</option>
+                                                                                            <option value='8'{{#iff quantity '==' 8}}selected="true"{{/iff}}>8</option>
+                                                                                            <option value='9'{{#iff quantity '==' 9}}selected="true"{{/iff}}>9</option>
+                                                                                            <option value='10'>10+</option>
+                                                                                        </select> {{/iff}} {{/iff}} {{#iff pricing.quantity '==' 'lock'}}
+													<span>{{quantity}}</span> {{/iff}}
+												</div>
+
+												{{/if}}
+											</td>
+											<td style="text-align:center; vertical-align:middle;">
+												{{unitPrice}}
+											</td>
+											<td style="text-align:center; vertical-align:middle;">
+												{{#if selected}} {{priceTotal}} {{#iff ../../required '!=' true}}
+												<a data-fsc-action="Remove" data-fsc-item-path-value="{{path}}" class="removecart" style="float:right;">
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</a>
+												{{/iff}} {{/if}} {{#iff selected '!=' true}}---{{/iff}}
+											</td>
+										</tr>
+										{{/each}}
+									</table>
+								</div>
+							</td>
+						</tr>
+						{{/iff}}
+
+
+						<!--Check if the product has an alternate option-->
+						{{#iff type '==' 'config-one'}}
+						<tr>
+							<td></td>
+							<td colspan="5">
+								<div class="well">
+									<h4>Product Options for {{../../display}}<br />{{display}}</h4>
+									<table class="table table-striped">
+										<tr>
+											<th colspan="2">Product</th>
+											<th class="text-center">Qty</th>
+											<th class="text-center">Unit Price</th>
+											<th class="text-center">Subtotal</th>
+										</tr>
+										{{#each items}}
+										<tr>
+											<td style="vertical-align:middle;" class="col-md-1">
+												<input type="radio" {{#if selected}} checked{{/if}} data-fsc-action="Add" data-fsc-item-path-value="{{path}}">
+											</td>
+											<td style="vertical-align:middle;" class="col-md-6 text-left">
+												{{#if this.image}}
+												<img class="hidden-sm hidden-xs" src="{{this.image}}" style="height: 60px; width: auto; float: left; margin-right: 10px;" /> {{/if}} {{this.display}} {{#if description.summary}}
+												<br /><a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+											</td>
+											<td style="vertical-align:middle;" class="col-md-2">
+
+												<div class='quantity inline-block text-center'>
+													<span>{{quantity}}</span>
+												</div>
+
+											</td>
+											<td style="text-align:center; vertical-align:middle;">
+												{{unitPrice}}
+											</td>
+											<td style="text-align:center; vertical-align:middle;">
+												{{#if selected}} {{priceTotal}} {{#iff ../../required '!=' true}}
+												<a data-fsc-action="Remove" data-fsc-item-path-value="{{path}}" class="removecart" style="float:right;">
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</a>
+												{{/iff}} {{/if}} {{#iff selected '!=' true}}---{{/iff}}
+											</td>
+										</tr>
+										{{/each}}
+									</table>
+								</div>
+							</td>
+						</tr>
+						{{/iff}}
+
+						<!--Check if product has select many options-->
+						{{#iff type '==' 'config-many'}}
+						<tr>
+							<td></td>
+							<td colspan="5">
+								<div class="well">
+									<h4>Product Options for {{../../display}}<br />{{display}}</h4>
+									<table class="table table-striped">
+										<tr>
+											<th colspan="2">Product</th>
+											<th class="text-center">Unit Price</th>
+											<th class="text-center">Qty</th>
+											<th class="text-center">Subtotal</th>
+										</tr>
+										{{#each items}}
+										<tr>
+											<td style="vertical-align:middle;" class="col-md-1">
+												{{#if selected}}
+												<input type="checkbox" name="{{path}}" checked data-fsc-action="Remove" data-fsc-item-path-value="{{path}}"> {{else}}
+												<input type="checkbox" data-fsc-action="Add" data-fsc-item-path-value="{{path}}"> {{/if}}
+											</td>
+											<td style="vertical-align:middle;" class="col-md-6 text-left">
+												<img class="hidden-sm hidden-xs" src="{{this.image}}" style="height: 60px; width: auto; float: left; margin-right: 10px;" />{{this.display}} {{#if description.summary}}
+												<br /><a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+											</td>
+
+											<td style="text-align:center; vertical-align:middle;">
+												{{unitPrice}}
+											</td>
+
+											<td style="vertical-align:middle;" class="col-md-2">
+												{{#if selected}}
+												<div class='quantity inline-block'>
+													{{#iff pricing.quantity '==' 'allow'}} {{#iff quantity '>=' '10'}}
+													<div class="form-inline">
+														<input type="text" class="form-control" class="inline" data-fsc-item-quantity-value data-fsc-item-path-value="{{path}}" value="{{quantity}}" style="width:auto;">
+														<input type="button" class="btn btn-default" data-fsc-action="Update" data-fsc-item-path-value="{{path}}" value="Update" style="width:auto;">
+													</div>
+													{{else}}
+													<select data-fsc-item-quantity-value data-fsc-item-quantity data-fsc-item-path-value="{{path}}" data-fsc-item-path="{{path}}" data-fsc-action="Update" class="form-control" style="width:auto; margin: 0 auto;">
+                                                                                            <option value='1'{{#iff quantity '==' 1}}selected="true"{{/iff}}>1</option>
+                                                                                            <option value='2'{{#iff quantity '==' 2}}selected="true"{{/iff}}>2</option>
+                                                                                            <option value='3'{{#iff quantity '==' 3}}selected="true"{{/iff}}>3</option>
+                                                                                            <option value='4'{{#iff quantity '==' 4}}selected="true"{{/iff}}>4</option>
+                                                                                            <option value='5'{{#iff quantity '==' 5}}selected="true"{{/iff}}>5</option>
+                                                                                            <option value='6'{{#iff quantity '==' 6}}selected="true"{{/iff}}>6</option>
+                                                                                            <option value='7'{{#iff quantity '==' 7}}selected="true"{{/iff}}>7</option>
+                                                                                            <option value='8'{{#iff quantity '==' 8}}selected="true"{{/iff}}>8</option>
+                                                                                            <option value='9'{{#iff quantity '==' 9}}selected="true"{{/iff}}>9</option>
+                                                                                            <option value='10'>10+</option>
+                                                                                        </select> {{/iff}} {{/iff}} {{#iff pricing.quantity '==' 'lock'}}
+													<span>{{quantity}}</span> {{/iff}}
+												</div>
+
+												{{/if}}
+											</td>
+
+											<td style="text-align:center; vertical-align:middle;">
+												{{#if selected}} {{priceTotal}} {{#iff ../../required '!=' true}}
+												<a data-fsc-action="Remove" data-fsc-item-path-value="{{path}}" class="removecart" style="float:right;">
+													<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+												</a>
+												{{/iff}} {{/if}} {{#iff selected '!=' true}}---{{/iff}}
+											</td>
+										</tr>
+										{{/each}}
+									</table>
+								</div>
+							</td>
+						</tr>
+						{{/iff}} {{/each}}
+
+
+					</table>
+				</td>
+			</tr>
+
+
+			{{/iff}} {{/each}} {{/each}} {{#each items}} {{#each items}} {{#iff path '==' 'SystemExtension.shippingcalculation'}}
+			<tr class="table-bordered">
+				<td colspan="4" class="text-right" style="vertical-align:middle;"><strong>Shipping:</strong></td>
+				<td style="vertical-align:middle;">
+					<h4>{{this.total}}
+                                        </h4></td>
+			</tr>
+			{{/iff}} {{/each}} {{/each}}
+
+
+			<tr class="table-bordered">
+				<td colspan="4" class="text-right" style="vertical-align:middle;"><strong>Total:</strong></td>
+				<td style="vertical-align:middle;">
+					<h3 data-fsc-order-total style="margin:0"></h3> {{#each items}} {{#each items}} {{#iff path '==' 'SystemExtension.shippingcalculation'}}
+					<tr class="table-bordered">
+						<td colspan="4" class="text-right" style="vertical-align:middle;">
+							Shipping Method:&nbsp; {{#each ../../../order}} {{#iff tags.shipping '==' 'ups_ground'}}
+							<input type="radio" name="shipping_method" value="ups_ground" onclick="_f.Tag('shipping', 'ups_ground');" checked="checked" />&nbsp;UPS Ground&nbsp; {{else}}
+							<input type="radio" name="shipping_method" value="ups_ground" onclick="_f.Tag('shipping', 'ups_ground');" />&nbsp;UPS Ground&nbsp; {{/iff}} {{#iff tags.shipping '==' 'ups_3rd_day'}}
+							<input type="radio" name="shipping_method" value="ups_3rd_day" onclick="_f.Tag('shipping', 'ups_3rd_day');" checked="checked" />&nbsp;UPS 3rd Day&nbsp; {{else}}
+							<input type="radio" name="shipping_method" value="ups_3rd_day" onclick="_f.Tag('shipping', 'ups_3rd_day');" />&nbsp;UPS 3rd Day&nbsp; {{/iff}} {{#iff tags.shipping '==' 'ups_2nd_day'}}
+							<input type="radio" name="shipping_method" value="ups_2nd_day" onclick="_f.Tag('shipping', 'ups_2nd_day');" checked="checked" />&nbsp;UPS 2nd Day&nbsp; {{else}}
+							<input type="radio" name="shipping_method" value="ups_2nd_day" onclick="_f.Tag('shipping', 'ups_2nd_day');" />&nbsp;UPS 2nd Day&nbsp; {{/iff}} {{#iff tags.shipping '==' 'ups_next_day'}}
+							<input type="radio" name="shipping_method" value="ups_next_day" onclick="_f.Tag('shipping', 'ups_next_day');" checked="checked" />&nbsp;UPS Next Day&nbsp; {{else}}
+							<input type="radio" name="shipping_method" value="ups_next_day" onclick="_f.Tag('shipping', 'ups_next_day');" />&nbsp;UPS Next Day&nbsp; {{/iff}} {{/each}}
+							<strong>Shipping:</strong>
+						</td>
+						<td style="vertical-align:middle;">
+							<h4>{{this.total}}({{this.tags.shipping}})</h4></td>
+					</tr>
+					{{/iff}} {{/each}} {{/each}} {{#each order}} {{#if discountTotalValue}}
+					<p class="text-success">You save {{discountTotal}}!</p>
+					{{/if}} {{/each}}
+				</td>
+			</tr>
+
+		</table>
+		<div class="col-md-5 form-inline">
+			<input type="text" data-fsc-order-promocode data-fsc-promocode-value class="form-control" placeholder="coupon id">
+			<a href="#" class="btn btn-default" data-fsc-action="Promocode">Apply</a>
+		</div>
+		<div class="col-md-6"><a style="float: right;" data-fsc-selections-smartdisplay class="btn btn-default" data-fsc-action="Checkout">Checkout &nbsp; <span class="glyphicon glyphicon-chevron-right"></span></a></div>
+		<div style="clear: both;"></div>
+</script>
+
+
+<script data-fsc-template-for='cross-sells' type='text/x-handlebars-template'>
+	{{#each groups}} {{#iff selectableAdditions '==' true}}
+	<!--Cross-sells-->
+	{{#iff driverType '==' 'product'}}
+	<h4 class="clearfix" style="padding-top: 75px;">{{display}}</h4>
+	<table class="table table-striped table-bordered">
+		{{#each items}} {{#iff selected '==' false}}
+		<tr class="{{path}}">
+			<td style="vertical-align:middle;">
+				<img src="{{image}}" style="height: 40px; width: auto; float:left; margin-right: 10px;" /> {{display}} {{#if description.summary}}
+				<br /><a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+			</td>
+			<td align="right" style="vertical-align:middle;">
+				{{>pricing}}
+			</td>
+			<td style="text-align:center; vertical-align:middle;">
+				<a class="btn btn-default" data-fsc-item-path-value='{{path}}' data-fsc-item-path='{{path}}' data-fsc-action='Add'>{{#if description.action}} {{{description.action}}} {{else}} Add to Order {{/if}}</a>
+			</td>
+		</tr>
+		{{/iff}} {{/each}}
+	</table>
+	{{/iff}} {{/iff}} {{/each}}
+</script>
+
+
+<script data-fsc-template-for='up-sells' type='text/x-handlebars-template'>
+	{{#each groups}} {{#each items}} {{#iff selected '==' true}}
+	<!--upsells-->
+	{{#iff selectableReplacements '==' true}} {{#each groups}} {{#iff selectableReplacements '==' true}}
+	<h4 class="clearfix" style="padding-top: 75px;">{{display}}</h4>
+	<h5>This will replace {{driver}} with your selection below</h5>
+	<table class="table table-striped table-bordered">
+		{{#each items}} {{#iff selected '==' false}}
+		<tr class="{{path}}">
+			<td style="vertical-align:middle;">
+				<img src="{{image}}" style="height: 40px; width: auto; float:left; margin-right: 10px;" /> {{display}} {{#if description.summary}}
+				<br /><a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+			</td>
+			<td align="right" style="vertical-align:middle;">
+				{{>pricing}}
+			</td>
+			<td style="text-align:center; vertical-align:middle;">
+				<a class="btn btn-default" data-fsc-item-path-value='{{path}}' data-fsc-item-path='{{path}}' data-fsc-action='Add'>{{#if description.action}} {{{description.action}}} {{else}} Add to Order {{/if}}</a>
+			</td>
+		</tr>
+		{{/iff}} {{/each}}
+	</table>
+	{{/iff}} {{/each}} {{/iff}} {{/iff}} {{/each}} {{/each}}
+</script>
+
+
+<script data-fsc-template-for='all-offers' type='text/x-handlebars-template'>
+	{{#each groups}} {{#iff selectableAdditions '==' true}}
+	<!--Cross-sells-->
+	{{#iff driverType '==' 'product'}}
+	<h4>{{display}}</h4>
+	<table class="table table-striped table-bordered">
+		{{#each items}} {{#iff selected '==' false}}
+		<tr class="{{path}}">
+			<td style="vertical-align:middle;">
+				<img src="{{image}}" style="height: 40px; width: auto; float:left; margin-right: 10px;" /> {{display}} {{#if description.summary}}
+				<br /><a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+			</td>
+			<td align="right" style="vertical-align:middle;">
+				{{>pricing}}
+			</td>
+			<td style="text-align:center; vertical-align:middle;">
+				<a class="btn btn-default" data-fsc-item-path-value='{{path}}' data-fsc-item-path='{{path}}' data-fsc-action='Add'>{{#if description.action}} {{{description.action}}} {{else}} Add to Order {{/if}}</a>
+			</td>
+		</tr>
+		{{/iff}} {{/each}}
+	</table>
+	{{/iff}} {{/iff}} {{#each items}} {{#iff selected '==' true}}
+	<!--upsells-->
+	{{#iff selectableReplacements '==' true}} {{#each groups}} {{#iff selectableReplacements '==' true}}
+	<h4 class="clearfix">{{display}}</h4>
+	<h5>This will replace {{driver}} with your selection below</h5>
+	<table class="table table-striped table-bordered">
+		{{#each items}} {{#iff selected '==' false}}
+		<tr class="{{path}}">
+			<td style="vertical-align:middle;">
+				<img src="{{image}}" style="height: 40px; width: auto; float:left; margin-right: 10px;" /> {{display}} {{#if description.summary}}
+				<br /><a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-placement="right" data-content="{{{description.summary}}}" data-html="true">(Details)</a> {{/if}}
+			</td>
+			<td align="right" style="vertical-align:middle;">
+				{{>pricing}}
+			</td>
+			<td style="text-align:center; vertical-align:middle;">
+				<a class="btn btn-default" data-fsc-item-path-value='{{path}}' data-fsc-item-path='{{path}}' data-fsc-action='Add'>{{#if description.action}} {{{description.action}}} {{else}} Add to Order {{/if}}</a>
+			</td>
+		</tr>
+		{{/iff}} {{/each}}
+	</table>
+	{{/iff}} {{/each}} {{/iff}} {{/iff}} {{/each}} {{/each}}
+</script>
+
+
+<script id="pricing-partial" type='text/x-handlebars-template'>
+	<div class='pricing'>
+		{{#if discountTotalValue}}
+		<s class='text-muted'>{{price}}</s> {{/if}} {{#iff totalValue '>' '0'}}
+		<span class="clearfix">{{unitPrice}}</span> {{else}}
+		<strong class="clearfix text-success"> Free </strong> {{/iff}} {{#if discountTotalValue}}
+		<span class='text-success'>You save {{discountTotal}} ({{discountPercent}})</span> {{discount.reason}} {{/if}} {{#if discount.data.tiers}}
+		<div class='discount-tiers'>
+			<a data-container="" role="button" data-trigger="focus" data-toggle="popover" data-content="{{#each discount.data.tiers}}<div class='tier'>{{quantity}}+ : {{percent}}{{amount}} off</div>{{/each}}" data-html="true">Volume Discounts Available</a>
+		</div>
+		{{/if}}
+	</div>
+</script>
+
+<script id="quantity-partial" type='text/x-handlebars-template'>
+	<div class='quantity inline-block'>
+		{{#iff pricing.quantity '==' 'allow'}} {{#iff quantity '>=' '10'}}
+		<div class="form-inline">
+			<input type="text" class="form-control" class="inline" data-fsc-item-quantity-value data-fsc-item-path-value="{{path}}" value="{{quantity}}">
+			<input type="button" class="btn btn-default" data-fsc-action="Update" data-fsc-item-path-value="{{path}}" value="Update">
+		</div>
+		{{else}}
+		<select data-fsc-item-quantity-value data-fsc-item-quantity data-fsc-item-path-value="{{path}}" data-fsc-item-path="{{path}}" data-fsc-action="Update" class="form-control" style="width:auto; margin: 0 auto;">
+                        <option value='1'>1</option>
+                        <option value='2'>2</option>
+                        <option value='3'>3</option>
+                        <option value='4'>4</option>
+                        <option value='5'>5</option>
+                        <option value='6'>6</option>
+                        <option value='7'>7</option>
+                        <option value='8'>8</option>
+                        <option value='9'>9</option>
+                        <option value='10'>10+</option>
+                    </select> {{/iff}} {{/iff}} {{#iff pricing.quantity '==' 'lock'}}
+		<span>{{quantity}}</span> {{/iff}}
+	</div>
+</script>
+<div class="container" style="padding-top: 0px;">
+	<div class="row">
+		<div class="col-lg-12"><br /><br />
+			<h1>Shopping Cart</h1>
+			<div data-fsc-selections-smartdisplay>
+				<div data-fsc-selections-smartdisplay data-fsc-items-container='shopping-cart' data-fsc-filter="selected=true">
+				</div>
+
+				<div data-fsc-items-container='cross-sells'>
+				</div>
+
+				<div data-fsc-items-container='up-sells'>
+				</div>
+			</div>
+			<div data-fsc-selections-smartdisplay-inverse style="display:none;">
+				There is nothing in your cart.
+				<button class="btn btn-default" data-fsc-item-path-value="falcon" data-fsc-item-path="falcon" data-fsc-action="Add">Add Something to the Cart</button>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12 text-left"><br /><br />
+			<a href="./" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span>&nbsp Continue Shopping</a>
+		</div>
+	</div>
+</div>
