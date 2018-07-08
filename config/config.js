@@ -4,9 +4,9 @@ var connection = mysql.createConnection({
 
     host: "localhost",
     port: 3306,
-    user: "root",
-    password: "root",
-    database: "paknplay_db"
+    user: process.env.DB_USERNAME || "root",
+    password: process.env.DB_PASSWORD || "rootroot",
+    database: process.env.DB_DATABASE || "paknplay_db"
 });
 
 connection.connect(function (err) {

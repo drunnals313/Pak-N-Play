@@ -88,12 +88,17 @@ passport.deserializeUser(function(id, done){
   ));
 
 
-app.get("/main", function (req, res) {
-  res.render('index.handlebars')
+// app.get("/main", function (req, res) {
+//   res.render('index.handlebars')
+// });
+app.get('/success', (req, res) => { 
+  if(req.user) 
+  { res.redirect("/html/additems.html")
+}
 });
 
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/main',
+  successRedirect: '/success',
   failureRedirect: '/',
   failureFlash: true
 }))
