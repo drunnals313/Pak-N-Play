@@ -78,6 +78,67 @@ var orm = {
       cb(result);
     });
   },
-};
+  delete: function(table, condition, cb) {
+    var queryString = "DELETE FROM " + table;
+    queryString += " WHERE ";
+    queryString += condition;
+
+    connection.query(queryString, function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      cb(result);
+    });
+  },
+  findByID: function(tableInput, email, password, done) {
+    console.log(email + "what email is there to compare")
+    connection.query("select * from " + tableInput + " where email = ?", [email], function (err, rows, user) {
+      console.log(rows)
+      console.log(err + "error?")
+      if (err) { return done(err); }
+      var dbEmail = rows[0].email;
+      console.log(dbEmail + "should be the database email")
+      if (dbEmail != email) { 
+        console.log("username does not exist")
+        return done(null, false, { message: 'Incorrect username.' }); }
+      var dbPassword  = rows[0].password;
+      if (!(dbPassword == password)) {
+                  console.log("passwords aren't equal")
+                    return done(null, false, { message: 'Incorrect password.' });
+                 }
+      user = rows[0]
+      console.log(JSON.stringify(user) + "is there a user?")
+      return done(null, user);
+  })
+  },
+  createAccount: function(tableInput, account, cb) {
+    console.log("do we get to ORM?")
+    console.log(account.first_name + ", " + account.last_name + ", " + account.password +", " + account.street_address + ", " + account.city + ", " +  account.state + ", " + account.email)
+    connection.query ( "INSERT INTO " + tableInput + " SET ?",
+    {
+      first_name: account.first_name,
+      last_name: account.last_name,
+      password: account.password,
+      street_address: account.street_address,
+      city: account.city,
+      state: account.state,
+      email: account.email
+    },function (err, account) {
+      
+    if (err) { return cb(err); }
+      // if (!(user)) { 
+      //   return done(null, false, { message: 'Incorrect username.' }); }
+      // var dbPassword  = rows[0].password;
+      // if (!(dbPassword == password)) {
+      //             console.log("passwords aren't equal")
+      //               return done(null, false, { message: 'Incorrect password.' });
+      //            }
+      // user = rows[0]
+      // console.log(JSON.stringify(user) + "is there a user?")
+      return cb(null, account);
+  })
+  }
+}
 
 module.exports = orm;

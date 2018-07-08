@@ -1,16 +1,14 @@
 // Use PUT method to update information with both "rent" and "donate" for items.
-$(function () {
+$(document).ready(function () {
   /* $("#submit").on("click", function (event) {
     //if this doesn't work, try "if rent is checked" statement
     if ($("#rent") === "renter") {
       var id = $(this).data("id");
       var rentItem = $(this).data("rentItem");
       //create variable in form to select quantity
-
       var rentItem = {
         quantity: quantity
       };
-
       // Send the PUT request.
       $.ajax("/api/paknplay/" + id, {
         type: "PUT",
@@ -24,7 +22,6 @@ $(function () {
       );
     }
   }); */
-
   //Adding new item for a donator
   $("#submit").on("submit", function (event) {
     //If rent=renter doesn't work, try making an "if renter is checked" statement
@@ -60,12 +57,9 @@ $(function () {
       );
     })
  
-
   //Commenting delete method out on lines 53-66 for the time being, Not sure if we will need to use this at all. Even if stock item is down to zero, we simply would not show it to the user on the front end. No need to delete in case someone donates an item, thus replenishing the stock.
-
   // $(".delete-cat").on("click", function (event) {
   //   var id = $(this).data("id");
-
   //   // Send the DELETE request.
   //   $.ajax("/api/cats/" + id, {
   //     type: "DELETE"

@@ -1,10 +1,15 @@
+var path = require("path")
 var express = require("express");
+// var router = express.Router();
+var paknplay = require("../models/inventory.js");
 
-var router = express.Router();
+module.exports = function(app) {
+app.get("/", function (req, res) {
+    res.sendFile(path.join(__dirname, "../views/pages/index.html"));
+  });
 
-var paknplay = require("..views/js/inventory.js");
 
-router.get("/", function(req, res) {
+app.get("/api/paknplay", function(req, res) {
   paknplay.all(function(data) {
     var invObject = {
       paknplays: data
@@ -15,7 +20,7 @@ router.get("/", function(req, res) {
   });
 });
 
-router.post("/api/paknplay", function(req, res) {
+app.post("/api/paknplay", function(req, res) {
   paknplay.create([
     "item name", "qty"
     //edit this so it coincides with SQL database fields
@@ -26,5 +31,4 @@ router.post("/api/paknplay", function(req, res) {
     res.json({ id: result.insertId });
   });
 });
-
-module.exports = router;
+}
