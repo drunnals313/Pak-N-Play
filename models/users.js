@@ -1,7 +1,7 @@
 // Import the ORM to create functions that will interact with the database.
 var orm = require("../config/orm.js");
 
-var user = {
+var User = {
   all: function(cb) {
     orm.all("user_accounts", function(res) {
       cb(res);
@@ -22,8 +22,13 @@ var user = {
     orm.delete("user_accounts", condition, function(res) {
       cb(res);
     });
+  },
+  findUser: function(email, password, cb) {
+    orm.findByID("user_accounts", email, password, function(err, user) {
+      return cb(null, user);
+    })
   }
 };
 
 // Export the database functions for the controller (catsController.js).
-module.exports = user;
+module.exports = User;

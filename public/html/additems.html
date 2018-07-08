@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rent-a-Rattle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="server.js"></script> -->
+    <!--Check on script tags, may not need to link to server-->
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Rent-a-Rattle</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Vendors</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Products
+        </a>
+            <ul class="dropdown-menu">
+                <li class="dropdown-item dropdown-submenu">
+                      <a class="dropdown-item" href="#">Find Item</a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a class="dropdown-item" href="#">For Rent</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="dropdown-item" href="#">For Trade</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="dropdown-item" href="#">For Sale</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown-item dropdown-submenu">
+                    <a class="dropdown-item dropdown-submenu">Add Item</a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a class="dropdown-item" href="#">For Rent</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="dropdown-item" href="#">For Trade</a>
+                        </li>
+                        <li class="dropdown-item">
+                            <a class="dropdown-item" href="#">For Sale</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#"></a>
+        </div>
+        <li class="nav-item">
+            <a class="nav-link" href="/logout">Logout</a>
+          </li>
+
+      </li>
+    </ul>
+  </div>
+</nav>
+<body>
+    <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Rent-a-Rattle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="server.js"></script>
+    <!--Check on script tags, may not need to link to server-->
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron jumbotron-fluid" id="jumbotron">
+            <div class="container">
+                <h1 class="display-4">Rent-A-Rattle</h1>
+                <p class="lead">Does your baby grow out of things too fast?
+                    Are you traveling, but don't want to pack your Pak'n'Play?
+                    Do you have stuff you baby doesn't need anymore?
+                
+                    Welcome to Rent-a-Rattle!
+                
+                    Here you can rent, borrow, or buy any of you baby's needs for anytime of there life...anywhere you go.</p>
+            </div>
+        </div>
+
+        <form>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" id="iteFirstName">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" id="itemLastName">
+                </div>
+            </div>
+
+            
+
+            <div class="form-row">
+                <!-- <div class="form-group col-md-6">
+                    <label for="dItemCtgy">Item Category</label> -->
+                    <!--Add dropdown to select-->   
+                    <!-- <input type="text" class="form-control" id="dItemCtgy" placeholder="Change to drop down"> -->    
+                <div class="form-group col-md-6">
+                    <label for="dItemCtgy">Item Category</label>
+                    <select class="form-control" id="tbd">
+                        <option value="" disabled selected>Choose a category</option>
+                        <option value="Play">Play</option>
+                        <option value="Eat">Eat</option>
+                        <option value="Explore">Explore</option>
+                        <option value="Bath">Bath</option>
+                        <option value="Sleep">Sleep</option>
+                        <option value="Miscellaneous">Miscellaneous</option>
+                    </select>
+                </div>
+               <!--  </div> -->
+
+                <div class="form-group col-md-6">
+                    <label for="dItemName">Item Name</label>
+                    <input type="text" class="form-control" id="dItemName">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="dItemDes">Item Description</label>
+                    <input type="text" class="form-control" id="dItemDes">
+                </div>
+
+                <div class="input-field col s6">
+                    <label for="dItemPhoto">Link to Item Image (Required)</label>
+                    <input type="text" class="form-control validate" id="dItemPhoto" placeholder="Photo Link Here" id="dItemPhoto">
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="dItemQuantity">Item Quantity</label>
+                    <input type="text" class="form-control" id="dItemQuantity">
+                </div>
+
+            </div>
+
+            <label>I would like to...</label>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="custChoice" id="lend" value="renter">
+                <label class="form-check-label" for="rent">Lend Item</label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="custChoice" id="donate" value="donator">
+                <label class="form-check-label" for="donator">Donate Item</label>
+            </div>
+
+            <button type="submit" Class="ctn btn-primary mb-2" item="submit">Submit</button>
+        </form>
+        <!--Show available items here-->
+    </div>
+
+    <!--Bootstrap 4 jQuery scripts-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+</body>
+
+</html>
