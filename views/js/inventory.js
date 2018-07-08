@@ -48,6 +48,7 @@ $(function () {
 
       // Send the POST request.
       $.ajax("/api/paknplay", {
+        //Send this to the controller, send controller to model, send model to SQL database
         type: "POST",
         data: newitem
       }).then(
