@@ -1,8 +1,9 @@
 {{> items/navbar}}
-<h1>Welcome to Pak-N-Play!</h1>
-<h2>Pack less when you travel!</h2>
+<h1>Rent-A-Rattle!</h1>  <p>Pack less when you travel</p>
 
-<h3>Items that are available!</h3>
+<div class="row">
+<div class="col-lg-6">
+<h3 class="itemTitle">Select Items to Rent:</h3>
 
 <ul class= "availableList">
   {{#each items}}
@@ -11,8 +12,10 @@
     {{/unless}}
   {{/each}}
 </ul>
+</div>
 
-<h3>Items you are borrowing!</h3>
+<div class="col-lg-6">
+<h3 class="itemTitle">Select Items to Return:</h3>
 
 <ul class= "rentedList">
   {{#each items}}
@@ -21,6 +24,8 @@
     {{/if}}
   {{/each}}
 </ul>
+</div>
+</div>
 
 <h3>Add an Item</h3>
 <form class="create-form">
@@ -47,3 +52,5 @@
 
 
 {{> items/footer}}
+
+<link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">

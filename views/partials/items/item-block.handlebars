@@ -1,38 +1,38 @@
 <main id="barba-wrapper">
   	<div class="barba-container" data-namespace="AllListings">
-    	<br>
-    	<div class="container-fluid">
-			<div class="row" style="margin: 0;">
-				<div class="col-xs-10 col-xs-offset-1">
+    <br>
+	<div class="container-fluid">
+		<div class="row" style="margin: 0;">
+			<div class="col-xs-10 col-xs-offset-1">
+				
+			<div class="col-xs-12">
 					
-					<div class="col-xs-12">
-						
-						<div class="panel panel-primary">
-	            <div class="panel-heading">
-	              <h3 class="panel-title"><strong>{{item_name}}</strong></h3>
-	            </div>
-	            <div class="panel-body">
-	              <table class="table table-hover sortable" id='all-listings-table'>
-	                {{!-- <thead>
-	                  <tr>
-						<th>Item Name: {{item_name}}</th>
-	                    <th>Item Price: ${{price}}</th>
-	                  </tr>
-	                </thead> --}}
-	                <tbody>
-						<li>
-							{{item_name}}: ${{price}}
+					<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><strong>{{item_name}}</strong></h3>
+			</div>
+			<div class="panel-body">
+				<table class="table table-hover sortable" id='all-listings-table'>
+				{{!-- <thead>
+					<tr>
+					<th>Item Name: {{item_name}}</th>
+					<th>Item Price: ${{price}}</th>
+					</tr>
+				</thead> --}}
+				<tbody>
+					<li>
+						{{item_name}}: ${{price}}
 
-							<button class="change-purchase" data-id="{{id}}" data-newpurchase="{{purchase}}">
-								{{#if purchase}}Rent Now!{{else}}Return Now!{{/if}}
-							</button>
+						<button class="change-purchase" data-id="{{id}}" data-newpurchase="{{purchase}}">
+							{{#if purchase}}Rent Now!{{else}}Return Now!{{/if}}
+						</button>
 
-							<button class="delete-item" data-id="{{this.id}}">Delete!</button>
-						</li>
-	                </tbody>
-	              </table>
-	            </div>
-	          </div>
+						<button class="delete-item" data-id="{{this.id}}">Delete!</button>
+					</li>
+				</tbody>
+				</table>
+			</div>
+			</div>
 					</div>
 				</div>
 			</div>
