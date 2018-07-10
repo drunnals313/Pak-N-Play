@@ -1,3 +1,8 @@
+body {
+  background: url('extra_clean_paper.png') no-repeat;
+  background-size: cover;
+}
+
 li {
   padding: 5px;
   margin: 5px;
