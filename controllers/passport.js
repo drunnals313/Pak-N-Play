@@ -94,7 +94,7 @@ passport.deserializeUser(function(id, done){
   ));
 
   app.get('/success', function(req, res){ 
-    res.redirect("pages/additems.html")
+    res.render("index")
   });
 
 

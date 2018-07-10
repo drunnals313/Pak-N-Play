@@ -1,0 +1,48 @@
+{{> items/navbar}}
+<h1>Welcome to Pak-N-Play!</h1>
+<h2>Pack less when you travel!</h2>
+
+<h3>Items that are available!</h3>
+
+<ul class= "availableList">
+  {{#each items}}
+    {{#unless purchased}}
+      {{> items/item-block purchase=true}}
+    {{/unless}}
+  {{/each}}
+</ul>
+
+<h3>Items you are borrowing!</h3>
+
+<ul class= "rentedList">
+  {{#each items}}
+    {{#if purchased}}
+      {{> items/item-block purchase=false}}
+    {{/if}}
+  {{/each}}
+</ul>
+
+<h3>Add an Item</h3>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="ia">Item Name:</label>
+    <input type="text" id="ia" name="item_name">
+  </div>
+
+  <div class="form-group">
+    <label for="pa">Price:</label>
+    <input type="text" id="pa" name="price">
+  </div>
+
+  <div class="form-group">
+    <label for="purchased">Borrow?</label><br>
+    <input type="radio" name="purchased" value="1" checked> Rented!<br>
+    <input type="radio" name="purchased" value="0"> Returned!
+  </div>
+
+  <button type="submit">Add Item</button>
+</form>
+<br>
+
+{{> items/footer}}

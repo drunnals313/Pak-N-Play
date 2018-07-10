@@ -3,9 +3,10 @@ var express = require("express");
 // var router = express.Router();
 var paknplay = require("../models/inventory.js");
 
-module.exports = function(app) {
+module.exports = function(app, jwt) {
 app.get("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "../views/pages/index.html"));
+    res.render("login");
+    //res.sendFile(path.join(__dirname, "../views/pages/index.html"));
   });
 
 
