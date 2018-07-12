@@ -1,75 +1,57 @@
-{{!-- Nav bar --}}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    {{!-- brand name to link to homepage --}}
-  <a class="navbar-brand" href="#">Rent-a-Rattle</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-          {{!-- link to homepage --}}
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-          {{!-- link to about page --}}
-        <a class="nav-link" href="#">About</a>
-      </li>
-      <li class="nav-item">
-          {{!-- link to our vendors list --}}
-        <a class="nav-link" href="#">Vendors</a>
-      </li>
-      <li class="nav-item dropdown">
-          {{!-- drop down for if you want to rent, borrow, or buy --}}
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Products
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Rent</a>
-          <a class="dropdown-item" href="#">Borrow</a>
-          <a class="dropdown-item" href="#">Buy</a>
-        </div>
-      </li>
-    </ul>
-  </div>
-</nav>
-{{!-- welcome jumbotron --}}
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">This! Is! Rent-a-Rattle!</h1>
-    <p class="lead">The place where you can meet your baby needs with ease.</p>
-  </div>
+
+{{> items/navbar}}
+<h1>Rent-A-Rattle!</h1>  <p>Pack less when you travel</p>
+
+<div class="row">
+<div class="col-lg-6">
+<h3 class="itemTitle">Select Items to Rent:</h3>
+
+<ul class= "availableList">
+  {{#each items}}
+    {{#unless purchased}}
+      {{> items/item-block purchase=true}}
+    {{/unless}}
+  {{/each}}
+</ul>
 </div>
-{{!-- section for problem statement --}}
-<div class="card">
-  <div class="card-body">
-    Does your baby grow out of things too fast?
-    Are you traveling, but don't want to pack your Pak'n'Play?
-    Do you have stuff you baby doesn't need anymore?
 
-    Welcome to Rent-a-Rattle!
+<div class="col-lg-6">
+<h3 class="itemTitle">Select Items to Return:</h3>
 
-    Here you can rent, borrow, or buy any of you baby's needs for anytime of there life...anywhere you go.
-  </div>
+<ul class= "rentedList">
+  {{#each items}}
+    {{#if purchased}}
+      {{> items/item-block purchase=false}}
+    {{/if}}
+  {{/each}}
+</ul>
 </div>
-<form action="/login" method="post">
-       <div class="form-group">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" autofocus spellcheck="true" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="form-label">Password</label>
-                                <br>
-                                <input type="password" name="password" id="password" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" id="remember-me-checkbox" checked>
-                                <label for="remember-me-checkbox" tabindex="-1">Remember Me</label>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-secondary" id="sign-in">
-                                Sign In                               
-                             </button>
-                            </div>
+</div>
 
-                            </form>
+<h3>Add an Item</h3>
+<form class="create-form">
+
+  <div class="form-group">
+    <label for="ia">Item Name:</label>
+    <input type="text" id="ia" name="item_name">
+  </div>
+
+  <div class="form-group">
+    <label for="pa">Price:</label>
+    <input type="text" id="pa" name="price">
+  </div>
+
+  <div class="form-group">
+    <label for="purchased">Borrow?</label><br>
+    <input type="radio" name="purchased" value="1" checked> Rented!<br>
+    <input type="radio" name="purchased" value="0"> Returned!
+  </div>
+
+  <button type="submit">Add Item</button>
+</form>
+<br>
+
+
+{{> items/footer}}
+
+<link href="https://fonts.googleapis.com/css?family=Sriracha" rel="stylesheet">

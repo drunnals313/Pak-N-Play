@@ -1,23 +1,23 @@
 var passport = require('passport')
 var LocalStrategy   = require('passport-local').Strategy;
-var flash = require('connect-flash');
+var flash = require("connect-flash");
 var crypto   = require('crypto');
-
 var connection = require("../config/config.js");
 var express = require("express");
 
 var app = express();
-var Strategy = require("../models/user.js");
+var User = require("../models/users.js");
 
 var session = require("express-session"),
     bodyParser = require("body-parser");
 
-app.use(express.static("public"));
+   
+app.use(express.static("views"));
 app.use(session({ secret: "cats" }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(flash());
 // passport.use('local', new LocalStrategy({
 //     usernameField: 'email',
 //     passwordField: 'password',
@@ -65,43 +65,100 @@ passport.deserializeUser(function(id, done){
   });
 });
 
-  passport.use('local', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password',
-  } , 
+  passport.use('local', new LocalStrategy(
+    {
+      usernameField: 'email',
+      passwordField: 'password',
+      // passReqToCallback : true
+    } , 
     function(email, password, done) {
-      connection.query("select * from user_accounts where email = ?", [email], function (err, rows, user) {
-        console.log(rows)
-        console.log(user + "user?")
-        console.log(err + "error?")
+      console.log(email)
+      console.log(password)
+      User.findUser(email, password, function(err, user, msgs) {
+        console.log(user + "what happens to the user")
+        console.log(msgs)
         if (err) { return done(err); }
-        if (!user) { return done(null, false); }
-        var dbPassword  = rows[0].password;
-        if (!(dbPassword == password)) {
-                    ("passwords aren't equal")
-                      return done(null, false);
-                   }
-        user = rows[0]
+        // console.log("no errors")
+        // if (!user) {
+        //   console.log("incorrect username")
+        //   return done(null, false, { message: 'Incorrect username.' });
+        // }
+        // if (!user.password) {
+        //   console.log("incorrect password")
+        //   return done(null, false, { message: 'Incorrect password.' });
+        // }
+        // console.log(user)
         return done(null, user);
       });
     }
   ));
 
+  app.get('/success', function(req, res){ 
+    res.render("index")
+  });
 
-app.get("/main", function (req, res) {
-  res.render('index.handlebars')
-});
 
 app.post('/login', passport.authenticate('local', {
-  successRedirect: '/main',
+  successRedirect: '/success',
   failureRedirect: '/',
-  failureFlash: true
-}))
+  failureFlash: true }
+// }, function(req, res) {
+//   // If this function gets called, authentication was successful.
+//   // `req.user` contains the authenticated user.
+//   res.redirect('');
+// }
+))
+
+app.post('/register', function(req, res) {
+//   // If this function gets called, authentication was successful.
+//   // `req.user` contains the authenticated user.
+//   res.redirect('');\\
+
+var firstName = req.body.first_name;
+var lastName = req.body.last_name;
+var password = req.body.password;
+var address = req.body.address;
+var city = req.body.city;
+var state = req.body.state;
+var email = req.body.email;
+
+console.log(firstName + "Did we get a first name?")
+console.log(password + "did we get a password")
+
+var account = {
+  "first_name": firstName,
+  "last_name": lastName,
+  "password": password,
+  "street_address": address,
+  "city": city,
+  "state": state,
+  "email": email
+}
+
+User.createAccount(account, function(err, account, msgs) {
+
+if (err) throw(err); 
+// // console.log("no errors")
+// // if (!user) {
+// //   console.log("incorrect username")
+// //   return done(null, false, { message: 'Incorrect username.' });
+// // }
+// // if (!user.password) {
+// //   console.log("incorrect password")
+// //   return done(null, false, { message: 'Incorrect password.' });
+// // }
+// // console.log(user)
+// return done(null, account);
+// }
+})
+res.redirect("pages/additems.html")
+});
 
 app.get('/logout', function(req, res){
   req.session.destroy();
   req.logout();
-  res.redirect('index');
+  req.flash('success message', "You are now logged out")
+  res.redirect('/');
 });
 
 
