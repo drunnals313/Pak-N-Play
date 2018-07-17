@@ -111,7 +111,6 @@ CREATE TABLE heroku_be642bd2c77b2c2.items
 	item_name varchar(255) NOT NULL,
 	price DECIMAL(19,4) NOT NULL,
 	purchased BOOLEAN DEFAULT false,
-    photo_link VARCHAR(555) NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -129,9 +128,48 @@ CREATE TABLE heroku_be642bd2c77b2c2.user_accounts (
 
 
 
-INSERT INTO items (item_name, price, purchased) VALUES ('Stroller', '20.00', false, );
-INSERT INTO items (item_name, price, purchased) VALUES ('Crib', '15.00', false, );
-INSERT INTO items (item_name, price, purchased) VALUES ('Tickle Me Elmo', '20.00', false, );
+INSERT INTO items (item_name, price, purchased) VALUES ('Stroller', '20.00', false);
+INSERT INTO items (item_name, price, purchased) VALUES ('Crib', '15.00', false);
+INSERT INTO items (item_name, price, purchased) VALUES ('Tickle Me Elmo', '20.00', false);
+
+INSERT INTO user_accounts (first_name, last_name, password, street_address, city, state, email)
+VALUES ("Steve", "Smith", "password1", "1 Main Street", "Dover", "NH", "email@yahoo.com"),
+("Mike", "Smith", "password2", "2 Main Street", "Dover", "NH", "email2@yahoo.com"),
+("Dave", "Smith", "password3", "3 Main Street", "Dover", "NH", "email3@yahoo.com");
+
+
+---------------------------------------------------------------------------
+/* JAWSDB Heroku Addon: */
+USE w5ergtsckl98uek7;
+
+CREATE TABLE items
+(
+	id int NOT NULL AUTO_INCREMENT,
+	item_name varchar(255) NOT NULL,
+	price DECIMAL(19,4) NOT NULL,
+	purchased BOOLEAN DEFAULT false,
+    createdAt TIMESTAMP NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE user_accounts (
+  user_id INT NOT NULL AUTO_INCREMENT,
+  first_name VARCHAR(20) NOT NULL,
+  last_name VARCHAR(20) NOT NULL,
+  password VARCHAR(20) NOT NULL,
+  street_address VARCHAR(45) NOT NULL,
+  city VARCHAR(20) NOT NULL,
+  state VARCHAR(2) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  createdAt TIMESTAMP NOT NULL,
+  PRIMARY KEY (user_id)
+);
+
+
+
+INSERT INTO items (item_name, price, purchased) VALUES ('Stroller', '20.00', false);
+INSERT INTO items (item_name, price, purchased) VALUES ('Crib', '15.00', false);
+INSERT INTO items (item_name, price, purchased) VALUES ('Tickle Me Elmo', '20.00', false);
 
 INSERT INTO user_accounts (first_name, last_name, password, street_address, city, state, email)
 VALUES ("Steve", "Smith", "password1", "1 Main Street", "Dover", "NH", "email@yahoo.com"),

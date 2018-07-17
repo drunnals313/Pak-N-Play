@@ -36,5 +36,5 @@ var User = {
   }
 };
 
-// Export the database functions for the controller (catsController.js).
+// Export the database functions for the controller (passport.js).
 module.exports = User;

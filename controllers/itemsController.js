@@ -2,7 +2,7 @@ var express = require("express");
 
 var router = express.Router();
 
-// Import the model (cat.js) to use its database functions.
+// Import the model (items.js) to use its database functions.
 var item = require("../models/items.js");
 
 // Create all our routes and set up logic within those routes where required.

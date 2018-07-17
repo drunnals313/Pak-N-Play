@@ -1,3 +1,6 @@
+//NOT CURRENTLY CONNECTEDAND IN USE
+
+
 // Use PUT method to update information with both "rent" and "donate" for items.
 $(document).ready(function () {
   /* $("#submit").on("click", function (event) {
